@@ -17,7 +17,7 @@ public class RedBlackNode<T extends ComparableByValue<T>> {
     public static final boolean RED = true;
     public static final boolean BLACK = false;
 
-    private T data;
+    private final T data;
     private RedBlackNode<T> left, right;
     private int N; // # nodes in this subtree
     private boolean color; // color of link from parent to this node

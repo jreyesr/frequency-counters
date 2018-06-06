@@ -106,7 +106,7 @@ public class RedBlackTree<T extends ComparableByValue<T>> {
         if (node == null) {
             return 0;
         }
-        return 1 + size(node.getLeft()) + size(node.getRight());
+        return node.getN();
     }
 
     private RedBlackNode<T> rotateLeft(RedBlackNode<T> node) {
