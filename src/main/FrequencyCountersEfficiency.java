@@ -7,12 +7,13 @@ package main;
 
 import frequencycounters.FrequencyCounter;
 import frequencycounters.HashMapFrequencyCounter;
-import datastructures.BinarySearchTree;
 import frequencycounters.BinarySearchTreeFrequencyCounter;
 import frequencycounters.RedBlackTreeFrequencyCounter;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  *
@@ -20,11 +21,44 @@ import java.io.IOException;
  */
 public class FrequencyCountersEfficiency {
 
+    private static final int N_RUNS = 1;
+
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        testFrequencyCounter(new RedBlackTreeFrequencyCounter(0), "tinyTaleModified.txt");
+        String file = "leipzig1M.txt";
+
+        System.out.println("File: " + file);
+        for (int i = 3; i <= 15; i++) {
+            int N = i;
+
+            List<TimingInfo> timesBST = new LinkedList<>();
+            List<TimingInfo> timesRBT = new LinkedList<>();
+            List<TimingInfo> timesHM = new LinkedList<>();
+
+            for (int j = 0; j < N_RUNS; j++) {
+                long a = System.currentTimeMillis();
+                testFrequencyCounter(new BinarySearchTreeFrequencyCounter(N), file);
+                long b = System.currentTimeMillis();
+                timesBST.add(new TimingInfo("BinarySearchTree", b - a, N, file));
+
+                a = System.currentTimeMillis();
+                testFrequencyCounter(new RedBlackTreeFrequencyCounter(N), file);
+                b = System.currentTimeMillis();
+                timesRBT.add(new TimingInfo("RedBlackTree", b - a, N, file));
+
+                a = System.currentTimeMillis();
+                testFrequencyCounter(new HashMapFrequencyCounter(N), file);
+                b = System.currentTimeMillis();
+                timesHM.add(new TimingInfo("HashMap", b - a, N, file));
+            }
+
+            System.out.println("N=" + i);
+            System.out.println(TimingInfo.buildAverage(timesBST));
+            System.out.println(TimingInfo.buildAverage(timesRBT));
+            System.out.println(TimingInfo.buildAverage(timesHM));
+        }
     }
 
     private static void testFrequencyCounter(FrequencyCounter counter, String file) {
@@ -45,7 +79,7 @@ public class FrequencyCountersEfficiency {
         }
 
         // Find word with highest count
-        System.out.println(counter.getMostFrequent());
+        // System.out.println(counter.getMostFrequent());
     }
 
 }
