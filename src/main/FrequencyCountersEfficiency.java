@@ -21,7 +21,7 @@ import java.util.List;
  */
 public class FrequencyCountersEfficiency {
 
-    private static final int N_RUNS = 1;
+    private static final int N_RUNS = 5;
 
     /**
      * @param args the command line arguments
@@ -35,7 +35,7 @@ public class FrequencyCountersEfficiency {
 
     private static void testFile(String file) {
         System.out.println("File: " + file);
-        for (int i = 3; i <= 12; i += 3) {
+        for (int i = 3; i <= 12; i += 1) {
             int N = i;
 
             List<TimingInfo> timesBST = new LinkedList<>();
