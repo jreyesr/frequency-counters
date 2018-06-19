@@ -27,10 +27,15 @@ public class FrequencyCountersEfficiency {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        String file = "leipzig1M.txt";
+        String files[] = {"tinyTale.txt", "tale.txt", "leipzig1M.txt"};
+        for (String file : files) {
+            testFile(file);
+        }
+    }
 
+    private static void testFile(String file) {
         System.out.println("File: " + file);
-        for (int i = 3; i <= 15; i++) {
+        for (int i = 3; i <= 12; i += 3) {
             int N = i;
 
             List<TimingInfo> timesBST = new LinkedList<>();
@@ -77,9 +82,6 @@ public class FrequencyCountersEfficiency {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        // Find word with highest count
-        // System.out.println(counter.getMostFrequent());
     }
 
 }
